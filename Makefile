@@ -1,6 +1,6 @@
 all: drawgraph 
 
-drawgraph: drawmovegraph.cpp 
+drawgraph: drawgraph.cpp 
 	g++ -o drawgraph drawgraph.cpp
 
 clean:
