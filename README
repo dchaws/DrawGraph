@@ -40,3 +40,25 @@ To draw all the example graphs:
 
 cd Examples
 for i in mat*.txt;do ../drawgraph -H < $i > ${i/txt/tex};latex ${i/txt/tex};dvipdf ${i/txt/dvi};done
+
+
+The program arr2mat is a utility to convert a list of directed edges to
+an adjacency matrix format.
+
+For example, the file Example/testarrows.txt contains
+
+5
+0 1
+4 2
+0 3
+
+The first line is the number of nodes in total. Each line is a
+ordered pair of adjacencies. I.e. 0->1, 4->2.
+
+The output of arr2mat can be piped directly to drawgraph.
+
+./arr2mat < Examples/testarrows.txt | ./drawgraph -H
+
+or
+
+./drawgraph -H < <(./arr2mat < Examples/testarrows.txt) 
