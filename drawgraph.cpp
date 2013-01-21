@@ -1,4 +1,3 @@
-// DrawStateMoveGraphs is for drawing state and move graphs of Markov chains.
 // Copyright (C) 2011 David C. Haws
 
 //This program is free software: you can redistribute it and/or modify
