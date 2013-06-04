@@ -15,32 +15,33 @@ graph. For example, Examples/mat8.txt
 
 ## What can it do?
 
-Input is adjacency graph.
+Input is a vertex-vertex adjacency matrix.
 
- 17
- 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
- 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
- 0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 
- 0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 
- 0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 
- 0 0 1 0 1 0 0 0 0 0 0 0 0 1 0 0 1 
- 0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 
- 0 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 
- 1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
- 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 
- 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 1 
- 1 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 
- 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
- 0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
- 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 
- 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 
- 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 
+    17
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+    1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+    0 1 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 
+    0 0 1 0 0 0 0 0 0 0 0 1 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 0 0 0 0 1 0 0 0 0 
+    0 0 1 0 1 0 0 0 0 0 0 0 0 1 0 0 1 
+    0 0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 
+    0 0 0 0 0 0 1 0 0 0 1 0 0 0 0 0 0 
+    1 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+    0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 1 
+    1 0 1 0 0 0 0 0 1 0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 
+    0 0 0 1 0 0 0 0 0 0 0 0 0 0 0 0 0 
+    0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 
+    0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 
+    0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 
 
 Optional is are the node names, and positions.
 
     ./drawgraph --textsize 2 --nodesize 0.2 --nodetextoffset -0.5 0.5 -H -n Examples/mat15_names.txt -c Examples/mat15_positions.txt -i Examples/mat15.txt > Examples/mat15.tex
     cd Examples
-    latex mat15.tex;dvipdf mat15.dvi
+    latex mat15.tex
+    dvipdf mat15.dvi
 
 ![](https://raw.github.com/dchaws/DrawGraph/master/Examples/mat15.png)
 
@@ -116,5 +117,6 @@ Added option to read in the (x,y) offset for the node names.
 ## Updates 
 
 6/4/2013
+
 1. Now uses standalone package to draw just the graph.
 2. Added --nodetextoffset option.
