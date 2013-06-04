@@ -74,3 +74,6 @@ file are the grid size. The remaining numbers are the (x,y) pairs.
 ./drawgraph -H -n Examples/mat1_names.txt -c Examples/mat1_positions.txt < Examples/mat1.txt
 
 
+6/4/2013
+Now uses geometry package with landscape mode. Note, pdfcrop now works nicely
+with the output.

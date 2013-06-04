@@ -44,8 +44,6 @@ double stateGraphRadius = 8.5;
 double labelRadiusEpsilon = 0.5;
 double degreeCountRadiusEpsilon = labelRadiusEpsilon + 0.4;
 double nodeSize = 0.1;
-double initialNodeSize = nodeSize + 0.0;
-double initialNodeSizeEpsilon = 0.05;
 double angleEpsilon = 5;
 string lineWidth = "1.5pt";
 string arrowSize = "9pt";
@@ -56,6 +54,12 @@ double gridSizey = (stateGraphRadius + labelRadiusEpsilon)*2 + 1.0;
 
 double xOffset = gridSizex/2;
 double yOffset = gridSizey/2;
+
+double nodeNameScalex = 1.0;
+double nodeNameScaley = 1.0;
+
+double nodeNameOffsetx = -0.5;
+double nodeNameOffsety =  0.5;
 
 string undirectedEdgeColor = "black";
 string directedEdgeColor = "red";
@@ -125,6 +129,17 @@ int main(int argc, char **argv)
                 readPositions = 1;
                 positionsFileName = argv[i+1];
                 i++;
+            }
+            if (tempS == "--nodesize")
+            {
+                sscanf(argv[i+1],"%lf",&nodeSize);
+                i++;
+            }
+            if (tempS == "--textsize")
+            {
+                sscanf(argv[i+1],"%lf",&nodeNameScalex);
+                nodeNameScaley=nodeNameScalex;
+                i+=2;
             }
         }
     }
@@ -231,12 +246,14 @@ int main(int argc, char **argv)
     if (outputLatexHeader == 1)
     {
         *someOutput << "\\documentclass{article}" << endl;
-        *someOutput << "\\textwidth 8in" << endl;
-        *someOutput << "\\textheight 10in" << endl;
-        *someOutput << "\\voffset -1.2in" << endl;
-        *someOutput << "\\hoffset -1.6in " << endl;
+        //*someOutput << "\\textwidth 8in" << endl;
+        //*someOutput << "\\textheight 10in" << endl;
+        //*someOutput << "\\voffset -1.2in" << endl;
+        //*someOutput << "\\hoffset -1.6in " << endl;
+        *someOutput << "\\usepackage[landscape]{geometry}" << endl;
         *someOutput << "\\usepackage{pstricks}" << endl;
         *someOutput << "\\usepackage{color}" << endl;
+        *someOutput << "\\pagestyle{empty}" << endl;
         *someOutput << "\\begin{document}" << endl;
         *someOutput << "\\begin{center}" << endl;
     }
@@ -244,23 +261,6 @@ int main(int argc, char **argv)
     {
         *someOutput << "\\begin{pspicture}(" << gridSizex << "," << gridSizey << ")" << endl;
 //        *someOutput << "\\psgrid" << endl;
-    }
-
-    // Draw the nodes for the graph.
-    for (int i=0;i<numNodes;i++)
-    {
-        *someOutput << "\\pscircle*[linecolor=black](";
-        *someOutput << xStates[i];
-        *someOutput << ",";
-        *someOutput << yStates[i];
-        *someOutput << "){" << nodeSize << "}" << endl;
-
-
-        *someOutput << "\\rput(";
-        *someOutput << xStates[i];
-        *someOutput << ",";
-        *someOutput << yStates[i];
-        *someOutput << "){" << nodeNames[i] << "}" << endl;
     }
 
     // Draw undirected edges
@@ -298,6 +298,24 @@ int main(int argc, char **argv)
             }
         }
     }
+
+    // Draw the nodes for the graph.
+    for (int i=0;i<numNodes;i++)
+    {
+        *someOutput << "\\pscircle*[linecolor=black](";
+        *someOutput << xStates[i];
+        *someOutput << ",";
+        *someOutput << yStates[i];
+        *someOutput << "){" << nodeSize << "}" << endl;
+
+
+        *someOutput << "\\rput(";
+        *someOutput << xStates[i] + nodeNameOffsetx;
+        *someOutput << ",";
+        *someOutput << yStates[i] + nodeNameOffsety;
+        *someOutput << "){\\psscalebox{" << nodeNameScalex << " " << nodeNameScaley << "}{" << nodeNames[i] << "}}" << endl;
+    }
+
 
 
     if (outputpstricksHeader == 1)
