@@ -245,17 +245,17 @@ int main(int argc, char **argv)
 
     if (outputLatexHeader == 1)
     {
-        *someOutput << "\\documentclass{article}" << endl;
+        *someOutput << "\\documentclass[preview=true,pstricks=true]{standalone}" << endl;
         //*someOutput << "\\textwidth 8in" << endl;
         //*someOutput << "\\textheight 10in" << endl;
         //*someOutput << "\\voffset -1.2in" << endl;
         //*someOutput << "\\hoffset -1.6in " << endl;
-        *someOutput << "\\usepackage[landscape]{geometry}" << endl;
+        //*someOutput << "\\usepackage[landscape]{geometry}" << endl;
         *someOutput << "\\usepackage{pstricks}" << endl;
         *someOutput << "\\usepackage{color}" << endl;
         *someOutput << "\\pagestyle{empty}" << endl;
         *someOutput << "\\begin{document}" << endl;
-        *someOutput << "\\begin{center}" << endl;
+        //*someOutput << "\\begin{center}" << endl;
     }
     if (outputpstricksHeader == 1)
     {
@@ -324,7 +324,7 @@ int main(int argc, char **argv)
     }
     if (outputLatexHeader == 1)
     {
-        *someOutput << "\\end{center}" << endl;
+        //*someOutput << "\\end{center}" << endl;
         *someOutput << "\\end{document}" << endl;
     }
 

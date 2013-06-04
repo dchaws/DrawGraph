@@ -75,5 +75,4 @@ file are the grid size. The remaining numbers are the (x,y) pairs.
 
 
 6/4/2013
-Now uses geometry package with landscape mode. Note, pdfcrop now works nicely
-with the output.
+Now uses standalone package to draw just the graph.
