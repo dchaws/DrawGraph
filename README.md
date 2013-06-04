@@ -26,7 +26,7 @@ Input is a vertex-vertex adjacency matrix.
     0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 
     0 0 0 0 1 0 0 0 0 0 0 0 0 0 1 0 0 
 
-Optional is are the node names, and positions.
+Optional are the node names and positions.
 
     ./drawgraph --textsize 2 --nodesize 0.2 --nodetextoffset -0.5 0.5 -H -n Examples/mat15_names.txt -c Examples/mat15_positions.txt -i Examples/mat15.txt > Examples/mat15.tex
     cd Examples
@@ -54,7 +54,7 @@ Simple usage:
 The program will draw undirected edges with black and directed edges will be
 drawn in red with an arrow. See Examples/mat*.pdf
 
-## Input File
+## Input & Output File
 
 By default the program drawgraph reads in from standard input and writes to
 standard output. You can also use -i and -o to control the input and output.
@@ -62,7 +62,7 @@ E.g.
 
     ./drawgraph -i Examples/mat8.txt -o Examples/mat8.tex
 
-## Pstricks and Latex headers
+## Pstricks and Latex Headers
 
 By default the program only writes the pstricks part. But, you can have it
 print the pspicture environment tags with -P, or have it print the pspicture
@@ -74,14 +74,14 @@ and latex header and tail information with -H.
 
 You must use latex and not pdflatex.
 
-## Drawing all examples
+## Drawing Examples
 
 To draw all the example graphs:
 
     cd Examples
     for i in mat*.txt;do ../drawgraph -H < $i > ${i/txt/tex};latex ${i/txt/tex};dvipdf ${i/txt/dvi};done
 
-## Edge-edge adjacency to vertex-vertex adjacency
+## Edge-edge Adjacency to Vertex-Vertex Adjacency
 
 The program arr2mat is a utility to convert a list of directed edges to
 an adjacency matrix format.
@@ -104,7 +104,7 @@ or
 
     ./drawgraph -H < <(./arr2mat < Examples/testarrows.txt) 
 
-## Reading in node names and positions
+## Reading in Node Names and Positions
 
 Added option to read in node names. Node names are given one per line.
 
