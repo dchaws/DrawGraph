@@ -62,3 +62,8 @@ The output of arr2mat can be piped directly to drawgraph.
 or
 
 ./drawgraph -H < <(./arr2mat < Examples/testarrows.txt) 
+
+
+Added option to read in node names.
+
+./drawgraph -H -n Examples/mat1_names.txt < Examples/mat1.txt

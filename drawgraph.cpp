@@ -68,6 +68,8 @@ int main(int argc, char **argv)
 {
     int outputLatexHeader = 0;
     int outputpstricksHeader = 0;
+    int readNodeNames = 0;
+    string nodeNameFileName = "";
     string inputFileName = "";
     string outputFileName = "";
 
@@ -79,6 +81,7 @@ int main(int argc, char **argv)
 
     ostream *someOutput;
     ofstream outputFile;
+    ifstream nodeNamesFile;
 
 
     if (argc > 1 )
@@ -104,6 +107,12 @@ int main(int argc, char **argv)
             if (tempS == "-o")
             {
                 outputFileName  = argv[i+1];
+                i++;
+            }
+            if (tempS == "-n")
+            {
+                readNodeNames = 1;
+                nodeNameFileName = argv[i+1];
                 i++;
             }
         }
@@ -182,6 +191,28 @@ int main(int argc, char **argv)
 
     }
 
+    string nodeNames[numNodes];
+    if (readNodeNames == 1)
+    {
+        nodeNamesFile.open(nodeNameFileName.c_str());
+        if (nodeNamesFile.bad())
+        {
+            cerr << "Could not open " << nodeNameFileName << endl;
+            exit(0);
+        }
+        for (int i=0;i<numNodes;i++)
+        {
+            nodeNamesFile >> nodeNames[i];
+        }
+        nodeNamesFile.close();
+    }
+    else
+    {
+        for (int i=0;i<numNodes;i++)
+        {
+            nodeNames[i] = i;
+        }
+    }
 
     // Draw the nodes for the graph.
     for (int i=0;i<numNodes;i++)
@@ -197,7 +228,7 @@ int main(int argc, char **argv)
         *someOutput << (stateGraphRadius + labelRadiusEpsilon)*cos(2*i*M_PI/(double)numNodes) + xOffset;
         *someOutput << ",";
         *someOutput << (stateGraphRadius + labelRadiusEpsilon)*sin(2*i*M_PI/(double)numNodes) + yOffset;
-        *someOutput << "){" << i << "}" << endl;
+        *someOutput << "){" << nodeNames[i] << "}" << endl;
     }
 
     // Draw undirected edges
