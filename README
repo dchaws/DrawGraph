@@ -73,6 +73,10 @@ file are the grid size. The remaining numbers are the (x,y) pairs.
 
 ./drawgraph -H -n Examples/mat1_names.txt -c Examples/mat1_positions.txt < Examples/mat1.txt
 
+Added option to read in the (x,y) offset for the node names.
+
+./drawgraph --nodetextoffset 0.1 0.3 -H -n Examples/mat1_names.txt -c Examples/mat1_positions.txt
 
 6/4/2013
 Now uses standalone package to draw just the graph.
+Added --nodetextoffset option.

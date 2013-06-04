@@ -45,6 +45,8 @@ double labelRadiusEpsilon = 0.5;
 double degreeCountRadiusEpsilon = labelRadiusEpsilon + 0.4;
 double nodeSize = 0.1;
 double angleEpsilon = 5;
+string standaloneborder = "1cm";
+
 string lineWidth = "1.5pt";
 string arrowSize = "9pt";
 string arrowLength = "1.5";
@@ -58,8 +60,8 @@ double yOffset = gridSizey/2;
 double nodeNameScalex = 1.0;
 double nodeNameScaley = 1.0;
 
-double nodeNameOffsetx = -0.5;
-double nodeNameOffsety =  0.5;
+double nodeNameOffsetx =  0.0;
+double nodeNameOffsety =  0.0;
 
 string undirectedEdgeColor = "black";
 string directedEdgeColor = "red";
@@ -139,6 +141,12 @@ int main(int argc, char **argv)
             {
                 sscanf(argv[i+1],"%lf",&nodeNameScalex);
                 nodeNameScaley=nodeNameScalex;
+                i+=2;
+            }
+            if (tempS == "--nodetextoffset")
+            {
+                sscanf(argv[i+1],"%lf",&nodeNameOffsetx);
+                sscanf(argv[i+2],"%lf",&nodeNameOffsety);
                 i+=2;
             }
         }
@@ -245,7 +253,7 @@ int main(int argc, char **argv)
 
     if (outputLatexHeader == 1)
     {
-        *someOutput << "\\documentclass[preview=true,pstricks=true]{standalone}" << endl;
+        *someOutput << "\\documentclass[preview=true,pstricks=true,border=" << standaloneborder << "]{standalone}" << endl;
         //*someOutput << "\\textwidth 8in" << endl;
         //*someOutput << "\\textheight 10in" << endl;
         //*someOutput << "\\voffset -1.2in" << endl;
