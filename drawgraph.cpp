@@ -28,6 +28,8 @@
 //      -o <outputfilename>
 //      -H <Write latex header>
 //      -P <Write pstrick header>   If -H, then -P is also set
+//      -n <nodenamefilename>
+//      -c <nodepositionfilename>
 
 #include <iostream>
 #include <fstream>
@@ -69,7 +71,9 @@ int main(int argc, char **argv)
     int outputLatexHeader = 0;
     int outputpstricksHeader = 0;
     int readNodeNames = 0;
+    int readPositions = 0;
     string nodeNameFileName = "";
+    string positionsFileName = "";
     string inputFileName = "";
     string outputFileName = "";
 
@@ -82,6 +86,7 @@ int main(int argc, char **argv)
     ostream *someOutput;
     ofstream outputFile;
     ifstream nodeNamesFile;
+    ifstream positionsFile;
 
 
     if (argc > 1 )
@@ -115,6 +120,12 @@ int main(int argc, char **argv)
                 nodeNameFileName = argv[i+1];
                 i++;
             }
+            if (tempS == "-c")
+            {
+                readPositions = 1;
+                positionsFileName = argv[i+1];
+                i++;
+            }
         }
     }
 
@@ -133,23 +144,6 @@ int main(int argc, char **argv)
     }
 
 
-    if (outputLatexHeader == 1)
-    {
-        *someOutput << "\\documentclass{article}" << endl;
-        *someOutput << "\\textwidth 8in" << endl;
-        *someOutput << "\\textheight 10in" << endl;
-        *someOutput << "\\voffset -1.2in" << endl;
-        *someOutput << "\\hoffset -1.6in " << endl;
-        *someOutput << "\\usepackage{pstricks}" << endl;
-        *someOutput << "\\usepackage{color}" << endl;
-        *someOutput << "\\begin{document}" << endl;
-        *someOutput << "\\begin{center}" << endl;
-    }
-    if (outputpstricksHeader == 1)
-    {
-        *someOutput << "\\begin{pspicture}(" << gridSizex << "," << gridSizey << ")" << endl;
-//        *someOutput << "\\psgrid" << endl;
-    }
 
     
     istream *someInput;
@@ -184,11 +178,31 @@ int main(int argc, char **argv)
 
     double xStates[numNodes];
     double yStates[numNodes];
-    for (int i=0;i<numNodes;i++)
-    {
-        xStates[i] = stateGraphRadius*cos(2*i*M_PI/(double)numNodes) + xOffset;
-        yStates[i] = stateGraphRadius*sin(2*i*M_PI/(double)numNodes) + yOffset;
 
+    if (readPositions == 1)
+    {
+        positionsFile.open(positionsFileName.c_str());
+        if (positionsFile.bad())
+        {
+            cerr << "Could not open " << positionsFileName << endl;
+            exit(0);
+        }
+        positionsFile >> gridSizex;
+        positionsFile >> gridSizey;
+        for (int i=0;i<numNodes;i++)
+        {
+            positionsFile >> xStates[i];
+            positionsFile >> yStates[i];
+        }
+        positionsFile.close();
+    }
+    else
+    {
+        for (int i=0;i<numNodes;i++)
+        {
+            xStates[i] = stateGraphRadius*cos(2*i*M_PI/(double)numNodes) + xOffset;
+            yStates[i] = stateGraphRadius*sin(2*i*M_PI/(double)numNodes) + yOffset;
+        }
     }
 
     string nodeNames[numNodes];
@@ -214,6 +228,24 @@ int main(int argc, char **argv)
         }
     }
 
+    if (outputLatexHeader == 1)
+    {
+        *someOutput << "\\documentclass{article}" << endl;
+        *someOutput << "\\textwidth 8in" << endl;
+        *someOutput << "\\textheight 10in" << endl;
+        *someOutput << "\\voffset -1.2in" << endl;
+        *someOutput << "\\hoffset -1.6in " << endl;
+        *someOutput << "\\usepackage{pstricks}" << endl;
+        *someOutput << "\\usepackage{color}" << endl;
+        *someOutput << "\\begin{document}" << endl;
+        *someOutput << "\\begin{center}" << endl;
+    }
+    if (outputpstricksHeader == 1)
+    {
+        *someOutput << "\\begin{pspicture}(" << gridSizex << "," << gridSizey << ")" << endl;
+//        *someOutput << "\\psgrid" << endl;
+    }
+
     // Draw the nodes for the graph.
     for (int i=0;i<numNodes;i++)
     {
@@ -225,9 +257,9 @@ int main(int argc, char **argv)
 
 
         *someOutput << "\\rput(";
-        *someOutput << (stateGraphRadius + labelRadiusEpsilon)*cos(2*i*M_PI/(double)numNodes) + xOffset;
+        *someOutput << xStates[i];
         *someOutput << ",";
-        *someOutput << (stateGraphRadius + labelRadiusEpsilon)*sin(2*i*M_PI/(double)numNodes) + yOffset;
+        *someOutput << yStates[i];
         *someOutput << "){" << nodeNames[i] << "}" << endl;
     }
 

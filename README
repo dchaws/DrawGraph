@@ -64,6 +64,13 @@ or
 ./drawgraph -H < <(./arr2mat < Examples/testarrows.txt) 
 
 
-Added option to read in node names.
+Added option to read in node names. Node names are given one per line.
 
 ./drawgraph -H -n Examples/mat1_names.txt < Examples/mat1.txt
+
+Added option to read in positions of the nodes. First two numbers in the position
+file are the grid size. The remaining numbers are the (x,y) pairs.
+
+./drawgraph -H -n Examples/mat1_names.txt -c Examples/mat1_positions.txt < Examples/mat1.txt
+
+
