@@ -3,16 +3,6 @@ I got tired of drawing graphs that have both directed and undirected edges. So
 I wrote this simple program that reads in the adjacency matrix of a graph and
 writes pstricks code to draw the graph.
 
-The input should be a file with the number of nodes followed by the adjacency
-graph. For example, Examples/mat8.txt
-
-    5
-    0 1 0 0 0
-    1 0 0 1 0
-    0 1 0 1 0
-    0 0 1 0 0
-    1 0 0 1 0
-
 ## What can it do?
 
 Input is a vertex-vertex adjacency matrix.
@@ -46,6 +36,17 @@ Optional is are the node names, and positions.
 ![](https://raw.github.com/dchaws/DrawGraph/master/Examples/mat15.png)
 
 ## Simple Usage
+
+The input should be a file with the number of nodes followed by the 
+vertex-vertex adjacency matrix. For example, Examples/mat8.txt
+
+    5
+    0 1 0 0 0
+    1 0 0 1 0
+    0 1 0 1 0
+    0 0 1 0 0
+    1 0 0 1 0
+
 Simple usage:
 
     ./drawgraph < Examples/mat8.txt > Examples/mat8.tex
@@ -54,6 +55,7 @@ The program will draw undirected edges with black and directed edges will be
 drawn in red with an arrow. See Examples/mat*.pdf
 
 ## Input File
+
 By default the program drawgraph reads in from standard input and writes to
 standard output. You can also use -i and -o to control the input and output.
 E.g.
@@ -61,6 +63,7 @@ E.g.
     ./drawgraph -i Examples/mat8.txt -o Examples/mat8.tex
 
 ## Pstricks and Latex headers
+
 By default the program only writes the pstricks part. But, you can have it
 print the pspicture environment tags with -P, or have it print the pspicture
 and latex header and tail information with -H.
@@ -72,12 +75,14 @@ and latex header and tail information with -H.
 You must use latex and not pdflatex.
 
 ## Drawing all examples
+
 To draw all the example graphs:
 
     cd Examples
     for i in mat*.txt;do ../drawgraph -H < $i > ${i/txt/tex};latex ${i/txt/tex};dvipdf ${i/txt/dvi};done
 
 ## Edge-edge adjacency to vertex-vertex adjacency
+
 The program arr2mat is a utility to convert a list of directed edges to
 an adjacency matrix format.
 
