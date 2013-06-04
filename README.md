@@ -6,15 +6,16 @@ writes pstricks code to draw the graph.
 The input should be a file with the number of nodes followed by the adjacency
 graph. For example, Examples/mat8.txt
 
-5
-0 1 0 0 0
-1 0 0 1 0
-0 1 0 1 0
-0 0 1 0 0
-1 0 0 1 0
+    5
+    0 1 0 0 0
+    1 0 0 1 0
+    0 1 0 1 0
+    0 0 1 0 0
+    1 0 0 1 0
 
 ## Simple Usage
 Simple usage:
+
     ./drawgraph < Examples/mat8.txt > Examples/mat8.tex
 
 The program will draw undirected edges with black and directed edges will be
@@ -82,6 +83,7 @@ Added option to read in the (x,y) offset for the node names.
     ./drawgraph --nodetextoffset 0.1 0.3 -H -n Examples/mat1_names.txt -c Examples/mat1_positions.txt
 
 ## Updates 
+
 6/4/2013
 Now uses standalone package to draw just the graph.
 Added --nodetextoffset option.
