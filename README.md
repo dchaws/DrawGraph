@@ -81,7 +81,7 @@ To draw all the example graphs:
     cd Examples
     for i in mat*.txt;do ../drawgraph -H < $i > ${i/txt/tex};latex ${i/txt/tex};dvipdf ${i/txt/dvi};done
 
-## Edge-edge Adjacency to Vertex-Vertex Adjacency
+## Edge-Edge Adjacency to Vertex-Vertex Adjacency
 
 The program arr2mat is a utility to convert a list of directed edges to
 an adjacency matrix format.
@@ -125,3 +125,6 @@ Added option to read in the (x,y) offset for the node names.
 
 1. Now uses standalone package to draw just the graph.
 2. Added --nodetextoffset option.
+3. Added --nodesize.
+3. Added --textsize.
+3. Updated README.md.
