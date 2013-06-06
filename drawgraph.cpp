@@ -60,8 +60,8 @@ double yOffset = gridSizey/2;
 double nodeNameScalex = 1.0;
 double nodeNameScaley = 1.0;
 
-double nodeNameOffsetx =  0.0;
-double nodeNameOffsety =  0.0;
+double nodeNameOffsetx =  0.3;
+double nodeNameOffsety =  0.3;
 
 string undirectedEdgeColor = "black";
 string directedEdgeColor = "red";
@@ -205,7 +205,7 @@ int main(int argc, char **argv)
     if (readPositions == 1)
     {
         positionsFile.open(positionsFileName.c_str());
-        if (positionsFile.bad())
+        if (!positionsFile.is_open())
         {
             cerr << "Could not open " << positionsFileName << endl;
             exit(0);
@@ -232,7 +232,7 @@ int main(int argc, char **argv)
     if (readNodeNames == 1)
     {
         nodeNamesFile.open(nodeNameFileName.c_str());
-        if (nodeNamesFile.bad())
+        if (!nodeNamesFile.is_open())
         {
             cerr << "Could not open " << nodeNameFileName << endl;
             exit(0);
@@ -245,9 +245,11 @@ int main(int argc, char **argv)
     }
     else
     {
+        char buff[100];
         for (int i=0;i<numNodes;i++)
         {
-            nodeNames[i] = i;
+            sprintf(buff,"%d",i);
+            nodeNames[i] = buff;
         }
     }
 
@@ -336,4 +338,5 @@ int main(int argc, char **argv)
         *someOutput << "\\end{document}" << endl;
     }
 
+    exit(1);
 }
